@@ -1,0 +1,7 @@
+common:
+  harness: net
+  tags: net wifi
+sample:
+  description: Test esp32 wifi driver and APIs functionality
+  name: WiFi sample app
+
