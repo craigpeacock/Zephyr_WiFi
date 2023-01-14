@@ -13,7 +13,7 @@
 #include <errno.h>
 
 #define SSID "test_ap"
-#define PSK "secret"
+#define PSK "secretsquirrel"
 
 static struct net_mgmt_event_callback wifi_cb;
 static struct net_mgmt_event_callback ipv4_cb;
@@ -139,7 +139,7 @@ void main(void)
     wifi_connect();
 
     // Stay connected for 30 seconds, then disconnect.
-    k_sleep(K_SECONDS(30));    
+    //k_sleep(K_SECONDS(30));    
 
-    wifi_disconnect();
+    //wifi_disconnect();
 }
