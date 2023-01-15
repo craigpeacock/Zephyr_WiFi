@@ -1,4 +1,4 @@
-# Zephyr ESP32/ESP32C3 WiFi Code
+# Zephyr WiFi Code
 
 Simple example Zephyr WiFi code targeted for the [ESP32](https://docs.zephyrproject.org/latest/boards/xtensa/esp32/doc/index.html) and [ESP32C3](https://docs.zephyrproject.org/3.1.0/boards/riscv/esp32c3_devkitm/doc/index.html), although it should be platform-agnostic.
 
@@ -27,7 +27,7 @@ west flash
 west espressif monitor
 ```
 
-# Building for ESP32C3 (riscv)
+# Building for ESP32C3 (RISC-V)
 
 Follow the [Getting Started Guide](https://docs.zephyrproject.org/latest/develop/getting_started/index.html) to install Zephyr and the build tools. 
 
@@ -53,7 +53,7 @@ cannot find -lphy: No such file or directory
 cannot find -lmesh: No such file or directory
 ```
 
-The RISCV architecture (ESP32C3) requires the kconfig option CONFIG_HEAP_MEM_POOL_SIZE=32768 otherwise multiple errors result with undefined reference to `k_malloc'
+The RISC-V architecture (ESP32C3) requires the kconfig option CONFIG_HEAP_MEM_POOL_SIZE=32768 otherwise multiple errors result with undefined reference to `k_malloc'
 
 If this value is too small, errors can result loading the WiFi driver at runtime:
 
