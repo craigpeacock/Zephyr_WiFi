@@ -1,6 +1,6 @@
 # Zephyr WiFi Code
 
-Simple example Zephyr WiFi code targeted for the [ESP32](https://docs.zephyrproject.org/latest/boards/xtensa/esp32/doc/index.html) and [ESP32C3](https://docs.zephyrproject.org/3.1.0/boards/riscv/esp32c3_devkitm/doc/index.html), although it should be platform-agnostic.
+Simple example Zephyr WiFi code is targeted for the [ESP32](https://docs.zephyrproject.org/latest/boards/xtensa/esp32/doc/index.html) and [ESP32C3](https://docs.zephyrproject.org/3.1.0/boards/riscv/esp32c3_devkitm/doc/index.html), although it should be platform-agnostic.
 
 Connects to a WiFi network, obtains an IPv4 address via DHCP and disconnects after 30 seconds.
 
