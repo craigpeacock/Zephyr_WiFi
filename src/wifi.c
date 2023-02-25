@@ -107,6 +107,8 @@ void wifi_connect(void)
     wifi_params.psk_length = strlen(PSK);
     wifi_params.channel = WIFI_CHANNEL_ANY;
     wifi_params.security = WIFI_SECURITY_TYPE_PSK;
+    wifi_params.band = WIFI_FREQ_BAND_2_4_GHZ; 
+    wifi_params.mfp = WIFI_MFP_OPTIONAL;
 
     printk("Connecting to SSID: %s\n", wifi_params.ssid);
 
@@ -128,6 +130,8 @@ void wifi_disconnect(void)
 
 void main(void)
 {
+    printk("WiFi Example\nBoard: %s\n", CONFIG_BOARD);
+
     net_mgmt_init_event_callback(&wifi_cb, wifi_mgmt_event_handler,
                                  NET_EVENT_WIFI_CONNECT_RESULT | NET_EVENT_WIFI_DISCONNECT_RESULT);
 
