@@ -62,4 +62,21 @@ If this value is too small, errors can result loading the WiFi driver at runtime
 [00:00:00.005,000] <err> esp32_wifi: Failed to start Wi-Fi driver  
 ```
 
+# nrf7002dk_nrf5340_cpuapp (Nordic nRF7002)
+
+Project currently builds and sucessfully connects when using nRFConnect SDK 2.2.0. 
+
+It is noted when using SDK 2.3.0, the following error (Unable to get wpa_s handle for wlan0) is reported at runtime:
+
+```
+WiFi Example
+Board: nrf7002dk_nrf5340_cpuapp
+Connecting to SSID: test_ap
+[00:00:00.600,189] <inf> wpa_supp: z_wpas_start: 385 Starting wpa_supplicant thread with debug level: 3
+[00:00:00.600,402] <inf> wpa_supp: Successfully initialized wpa_supplicant
+[00:00:00.600,830] <err> wpa_supp: z_wpas_get_handle_by_ifname: Unable to get wpa_s handle for wlan0
+```
+
+
+
 
