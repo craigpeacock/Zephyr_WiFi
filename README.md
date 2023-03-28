@@ -68,7 +68,7 @@ This project currently builds and sucessfully connects when using nRFConnect SDK
 
 ## Troubleshooting 
 
-It is noted when using SDK 2.3.0, the following error (Unable to get wpa_s handle for wlan0) is reported at runtime:
+It may be observed when using SDK 2.3.0 that the following error (Unable to get wpa_s handle for wlan0) is reported at runtime:
 
 ```
 WiFi Example
