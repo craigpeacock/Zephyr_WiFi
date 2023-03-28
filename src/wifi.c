@@ -172,6 +172,12 @@ void main(void)
     net_mgmt_add_event_callback(&wifi_cb);
     net_mgmt_add_event_callback(&ipv4_cb);
 
+#ifdef CONFIG_BOARD_NRF7002DK_NRF5340_CPUAPP
+    // Delay to prevent "Unable to get wpa_s handle for wlan0" on nRF Connect SDK 2.3.0.?
+    printk("Sleeping for 1 second while wlan0 comes up\n");
+    k_sleep(K_SECONDS(1));
+#endif
+
     wifi_connect();
     k_sem_take(&wifi_connected, K_FOREVER);
     wifi_status();
