@@ -64,9 +64,11 @@ If this value is too small, errors can result loading the WiFi driver at runtime
 
 # nrf7002dk_nrf5340_cpuapp (Nordic nRF7002)
 
-Project currently builds and sucessfully connects when using nRFConnect SDK 2.2.0. 
+This project currently builds and sucessfully connects when using nRFConnect SDK 2.2.0 and 2.3.0. Support for the nRF7002 is very new and change should be expected as the code matures over time. Below is a list of common issues encounted when porting your Zephyr WiFi code to the nRF7002 target:
 
-It is noted when using SDK 2.3.0, the following error (Unable to get wpa_s handle for wlan0) is reported at runtime:
+## Troubleshooting 
+
+It may be observed when using SDK 2.3.0 that the following error (Unable to get wpa_s handle for wlan0) is reported at runtime:
 
 ```
 WiFi Example
@@ -76,6 +78,34 @@ Connecting to SSID: test_ap
 [00:00:00.600,402] <inf> wpa_supp: Successfully initialized wpa_supplicant
 [00:00:00.600,830] <err> wpa_supp: z_wpas_get_handle_by_ifname: Unable to get wpa_s handle for wlan0
 ```
+
+Examing nRF7002 code from Nordic, it appears they have put a 1 second day in after registering the callbacks, and before calling wifi_connect(). This was not required in SDK 2.2.0
+
+To prevent the following build error
+```
+\wifi\nrf700x\zephyr\src\shim.c:14:10: fatal error: sys/time.h: No such file or directory
+```
+add the following to your prj.conf:
+```
+CONFIG_NEWLIB_LIBC=y
+CONFIG_NEWLIB_LIBC_NANO=n
+```
+
+To prevent build error
+```
+undefined reference to `z_impl_sys_rand32_get'
+```
+and the following to your prj.conf:
+```
+CONFIG_ENTROPY_GENERATOR=y
+CONFIG_TEST_RANDOM_GENERATOR=y
+```
+
+
+
+
+
+
 
 
 
