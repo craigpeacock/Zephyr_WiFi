@@ -13,8 +13,11 @@
 #include <errno.h>
 #include "http_get.h"
 
-#define SSID "test_ap"
-#define PSK "secretsquirrel"
+//#define SSID "test_ap"
+//#define PSK "secretsquirrel"
+
+#define SSID "Welcome_IN"
+#define PSK "PEACOCKpeacoc"
 
 static K_SEM_DEFINE(wifi_connected, 0, 1);
 static K_SEM_DEFINE(ipv4_address_obtained, 0, 1);
@@ -158,7 +161,7 @@ void wifi_disconnect(void)
     }
 }
 
-void main(void)
+int main(void)
 {
     int sock;
 
@@ -191,4 +194,6 @@ void main(void)
     // Stay connected for 30 seconds, then disconnect.
     //k_sleep(K_SECONDS(30));    
     //wifi_disconnect();
+
+    return(0);
 }
