@@ -38,7 +38,7 @@ void print_addrinfo_results(struct zsock_addrinfo **results)
 	struct sockaddr_in6 *sa6;
 	struct zsock_addrinfo *rp;
 	
-	for (rp = (struct zsock_addrinfo *)results; rp != NULL; rp = rp->ai_next) {
+	for (rp = *results; rp != NULL; rp = rp->ai_next) {
 		if (rp->ai_addr->sa_family == AF_INET) {
 			// IPv4 Address
 			sa = (struct sockaddr_in *) rp->ai_addr;
@@ -68,7 +68,7 @@ int connect_socket(struct zsock_addrinfo **results)
 	}
 	
 	// Iterate through until we get a successful connection
-	for (rp = (struct zsock_addrinfo *)results; rp != NULL; rp = rp->ai_next) {
+	for (rp = *results; rp != NULL; rp = rp->ai_next) {
 		if (rp->ai_addr->sa_family == AF_INET) {
 			// IPv4 Address
 			sa = (struct sockaddr_in *) rp->ai_addr;
