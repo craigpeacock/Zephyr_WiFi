@@ -54,32 +54,75 @@ void print_addrinfo_results(struct zsock_addrinfo **results)
 	}
 }
 
-int connect_socket(struct zsock_addrinfo **results)
+int connect_socket(struct zsock_addrinfo **results, uint16_t port)
 {
 	int sock;
+	int ret;
 	struct zsock_addrinfo *rp;
+	struct sockaddr_in6 *sa6;
+
+	// Create IPv6 Socket
+	sock = zsock_socket(AF_INET6, SOCK_STREAM, IPPROTO_TCP);
+	if (sock < 0) {
+		printk("Error creating IPv6 socket\n");
+		return(-1);
+	}
+
+	// Iterate through IPv6 addresses until we get a successful connection
+	for (rp = *results; rp != NULL; rp = rp->ai_next) {
+		if (rp->ai_addr->sa_family == AF_INET6) {
+			// IPv6 Address
+			sa6 = (struct sockaddr_in6 *) rp->ai_addr;
+			sa6->sin6_port = htons(port);
+			
+			char ipv6[INET6_ADDRSTRLEN];
+			zsock_inet_ntop(AF_INET6, &sa6->sin6_addr, ipv6, INET6_ADDRSTRLEN);
+			printk("Connecting to %s:%d ", ipv6, port);
+
+			ret = zsock_connect(sock, (struct sockaddr *) sa6, sizeof(struct sockaddr_in));
+			if (ret == 0) {
+				printk("Success\r\n");
+				return(sock);
+			} else {
+				printk("Failure (%d)\r\n", ret);
+			}
+		}
+	}
+	// Close IPv6 Socket
+	zsock_close(sock);
+
+	// Now try IPv4 Addresses
 	struct sockaddr_in *sa;
 
-	// Create Socket
+	// Create IPv4 Socket
 	sock = zsock_socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (sock < 0) {
-		printk("Error creating socket\n");
+		printk("Error creating IPv4 socket\n");
 		return(-1);
 	}
 	
-	// Iterate through until we get a successful connection
+	// Iterate through IPv4 addresses until we get a successful connection
 	for (rp = *results; rp != NULL; rp = rp->ai_next) {
 		if (rp->ai_addr->sa_family == AF_INET) {
 			// IPv4 Address
 			sa = (struct sockaddr_in *) rp->ai_addr;
-			sa->sin_port = htons(80);
-			zsock_connect(sock, (struct sockaddr *) sa, sizeof(struct sockaddr_in));
-			if (sock > 0)
-				break;
+			sa->sin_port = htons(port);
+
+			char ipv4[INET_ADDRSTRLEN];
+			zsock_inet_ntop(AF_INET, &sa->sin_addr, ipv4, INET_ADDRSTRLEN);
+			printk("Connecting to %s:%d ", ipv4, port);
+
+			ret = zsock_connect(sock, (struct sockaddr *) sa, sizeof(struct sockaddr_in));
+			if (ret == 0) {
+				printk("Success\r\n");
+				return(sock);
+			} else {
+				printk("Failure (%d)\r\n", ret);
+			}
 		}
 	}
 	
-	return(sock);
+	return(0);
 }
 
 static void http_response_cb(struct http_response *rsp,
