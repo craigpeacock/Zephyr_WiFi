@@ -13,11 +13,8 @@
 #include <errno.h>
 #include "http_get.h"
 
-//#define SSID "test_ap"
-//#define PSK "secretsquirrel"
-
-#define SSID "Welcome_IN"
-#define PSK "PEACOCKpeacoc"
+#define SSID "test_ap"
+#define PSK "secretsquirrel"
 
 static K_SEM_DEFINE(wifi_connected, 0, 1);
 static K_SEM_DEFINE(ipv4_address_obtained, 0, 1);
