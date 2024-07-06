@@ -12,6 +12,7 @@
 #include <zephyr/net/net_event.h>
 #include <errno.h>
 #include "http_get.h"
+#include "ping.h"
 
 #define SSID "test_ap"
 #define PSK "secretsquirrel"
@@ -60,17 +61,17 @@ static void handle_ipv4_result(struct net_if *iface)
 
         char buf[NET_IPV4_ADDR_LEN];
 
-        if (iface->config.ip.ipv4->unicast[i].ipv4.addr_type != NET_ADDR_DHCP) {
+        if (iface->config.ip.ipv4->unicast[i].addr_type != NET_ADDR_DHCP) {
             continue;
         }
 
         printk("IPv4 address: %s\n",
                 net_addr_ntop(AF_INET,
-                                &iface->config.ip.ipv4->unicast[i].ipv4.address.in_addr,
+                                &iface->config.ip.ipv4->unicast[i].address.in_addr,
                                 buf, sizeof(buf)));
         printk("Subnet: %s\n",
                 net_addr_ntop(AF_INET,
-                                &iface->config.ip.ipv4->unicast[i].netmask,
+                                &iface->config.ip.ipv4->netmask,
                                 buf, sizeof(buf)));
         printk("Router: %s\n",
                 net_addr_ntop(AF_INET,
@@ -177,15 +178,18 @@ int main(void)
     wifi_status();
     k_sem_take(&ipv4_address_obtained, K_FOREVER);
     printk("Ready...\n\n");
-    
-    printk("Looking up IP addresses:\n");
+
+    // Ping Google DNS 4 times
+    ping("8.8.8.8", 4);
+
+    printk("\nLooking up IP addresses:\n");
     struct zsock_addrinfo *res;
     nslookup("iot.beyondlogic.org", &res);
     print_addrinfo_results(&res);
 
-    printk("Connecting to HTTP Server:\n");
-    sock = connect_socket(&res);
-    http_get(sock, "iot.beyondlogic.org", "/test.txt");
+    printk("\nConnecting to HTTP Server:\n");
+    sock = connect_socket(&res, 80);
+    http_get(sock, "iot.beyondlogic.org", "/LoremIpsum.txt");
     zsock_close(sock);
     
     // Stay connected for 30 seconds, then disconnect.

@@ -130,15 +130,15 @@ static void http_response_cb(struct http_response *rsp,
 			void *user_data)
 {
 	if (final_data == HTTP_DATA_MORE) {
-		printk("Partial data received (%zd bytes)\n", rsp->data_len);
+		//printk("Partial data received (%zd bytes)\n", rsp->data_len);
 	} else if (final_data == HTTP_DATA_FINAL) {
-		printk("All the data received (%zd bytes)\n", rsp->data_len);
+		//printk("All the data received (%zd bytes)\n", rsp->data_len);
 	}
 
-	printk("Bytes Recv %zd\n", rsp->data_len);
-	printk("Response status %s\n", rsp->http_status);
-	printk("Recv Buffer Length %zd\n", rsp->recv_buf_len);
-	printk("%s\n",rsp->recv_buf);
+	//printk("Bytes Recv %zd\n", rsp->data_len);
+	//printk("Response status %s\n", rsp->http_status);
+	//printk("Recv Buffer Length %zd\n", rsp->recv_buf_len);
+	printk("%s",rsp->recv_buf);
 }
 
 void http_get(int sock, char * hostname, char * url)
