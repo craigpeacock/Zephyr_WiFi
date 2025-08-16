@@ -1,8 +1,8 @@
 # Zephyr WiFi Code
 
-Simple example Zephyr WiFi code is targeted for the ESP32-S3, ESP32-C3 and Raspberry Pico W, although it should be platform-agnostic.
+Simple example Zephyr WiFi code that is targeted for the [ESP32-S3](https://www.espressif.com/en/products/socs/esp32-s3), [ESP32-C3](https://www.espressif.com/en/products/socs/esp32-c3), Raspberry [Pico W](https://www.raspberrypi.com/documentation/microcontrollers/pico-series.html) (Infineon [CYW43439](https://www.infineon.com/part/CYW43439)) and Nordic [nRF7002](https://www.nordicsemi.com/Products/Wireless/WiFi/Products?lang=en#infotabs), although it should be platform-agnostic (one of the advantages of Zephyr).
 
-Connects to a WiFi network, obtains an IPv4 address via DHCP, pings Goggle's DNS server 8.8.8.8, does a DNS lookup for iot.beyondlogic.org returning IPv4 and IPv6 addresses and performs a http get request for http://iot.beyondlogic.org/LoremIpsum.txt
+This example connects to a WiFi network, obtains an IPv4 address via DHCP, pings Goggle's DNS server 8.8.8.8 four times, does a DNS lookup for iot.beyondlogic.org returning IPv4 and IPv6 addresses and finally performs a http GET request for http://iot.beyondlogic.org/LoremIpsum.txt
 
 ```
 *** Booting Zephyr OS build v4.2.0-1744-g1cb0b6a7ffa5 ***
@@ -139,7 +139,7 @@ Connecting to SSID: test_ap
 [00:00:00.600,830] <err> wpa_supp: z_wpas_get_handle_by_ifname: Unable to get wpa_s handle for wlan0
 ```
 
-Examing nRF7002 code from Nordic, it appears they have put a 1 second day in after registering the callbacks, and before calling wifi_connect(). This was not required in SDK 2.2.0
+Examining nRF7002 code from Nordic, it appears they have put a 1 second day in after registering the callbacks, and before calling wifi_connect(). This was not required in SDK 2.2.0
 
 To prevent the following build error
 ```
