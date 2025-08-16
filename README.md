@@ -46,7 +46,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel dolor auctor,
 
 Follow the [Getting Started Guide](https://docs.zephyrproject.org/latest/develop/getting_started/index.html) to install Zephyr and the build tools. 
 
-Zephyr Board Information: [ESP32-S3-DevKitM](https://docs.zephyrproject.org/latest/boards/espressif/esp32s3_devkitm/doc/index.html)
+Zephyr Board Information: [ESP32-S3-DevKitC](https://docs.zephyrproject.org/latest/boards/espressif/esp32s3_devkitc/doc/index.html)
 
 ```
 git clone https://github.com/craigpeacock/Zephyr_ESP32_WiFi.git
@@ -61,13 +61,28 @@ west espressif monitor
 
 Follow the [Getting Started Guide](https://docs.zephyrproject.org/latest/develop/getting_started/index.html) to install Zephyr and the build tools. 
 
-Zephyr Board Information: [ESP32-C3-DevKitM](https://docs.zephyrproject.org/latest/boards/espressif/esp32c3_devkitm/doc/index.html)
+Zephyr Board Information: [ESP32-C3-DevKitC](https://docs.zephyrproject.org/latest/boards/espressif/esp32c3_devkitc/doc/index.html)
 
 ```
 git clone https://github.com/craigpeacock/Zephyr_ESP32_WiFi.git
 cd Zephyr_ESP32_WiFi
 west blobs fetch hal_espressif
 west build -b esp32c3_devkitc/esp32c3
+west flash
+west espressif monitor
+```
+
+# Building for ESP32-C6 (RISC-V)
+
+Follow the [Getting Started Guide](https://docs.zephyrproject.org/latest/develop/getting_started/index.html) to install Zephyr and the build tools. 
+
+Zephyr Board Information: [ESP32-C6-DevKitC](https://docs.zephyrproject.org/latest/boards/espressif/esp32c6_devkitc/doc/index.html)
+
+```
+git clone https://github.com/craigpeacock/Zephyr_ESP32_WiFi.git
+cd Zephyr_ESP32_WiFi
+west blobs fetch hal_espressif
+west build -b esp32c6_devkitc/esp32c6/hpcore
 west flash
 west espressif monitor
 ```
