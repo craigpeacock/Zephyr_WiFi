@@ -82,7 +82,7 @@ static void handle_ipv4_result(struct net_if *iface)
         k_sem_give(&ipv4_address_obtained);
 }
 
-static void wifi_mgmt_event_handler(struct net_mgmt_event_callback *cb, uint32_t mgmt_event, struct net_if *iface)
+static void wifi_mgmt_event_handler(struct net_mgmt_event_callback *cb, uint64_t mgmt_event, struct net_if *iface)
 {
     switch (mgmt_event)
     {
