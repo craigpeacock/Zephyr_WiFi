@@ -1,43 +1,103 @@
 # Zephyr WiFi Code
 
-Simple example Zephyr WiFi code is targeted for the [ESP32](https://docs.zephyrproject.org/latest/boards/xtensa/esp32/doc/index.html) and [ESP32C3](https://docs.zephyrproject.org/3.1.0/boards/riscv/esp32c3_devkitm/doc/index.html), although it should be platform-agnostic.
+Simple example Zephyr WiFi code is targeted for the ESP32-S3, ESP32-C3 and Raspberry Pico W, although it should be platform-agnostic.
 
-Connects to a WiFi network, obtains an IPv4 address via DHCP and disconnects after 30 seconds.
+Connects to a WiFi network, obtains an IPv4 address via DHCP, pings Goggle's DNS server 8.8.8.8, does a DNS lookup for iot.beyondlogic.org returning IPv4 and IPv6 addresses and performs a http get request for http://iot.beyondlogic.org/LoremIpsum.txt
 
 ```
-*** Booting Zephyr OS build zephyr-v3.2.0-2019-g7ac69dc4ca95 ***
-Connecting to SSID: Welcome_IN
+*** Booting Zephyr OS build v4.2.0-1744-g1cb0b6a7ffa5 ***
+WiFi Example
+Board: esp32s3_devkitc
+Connecting to SSID: test_ap
 Connected
-IPv4 address: 192.168.0.67
+SSID: test_ap
+Band: 2.4GHz
+Channel: 9
+Security: WPA2-PSK
+RSSI: -68
+IPv4 address: 192.168.0.152
 Subnet: 255.255.255.0
 Router: 192.168.0.254
-Disconnected
+Ready...
+Reply from 8.8.8.8: bytes=28 time=25ms TTL=116
+Reply from 8.8.8.8: bytes=28 time=21ms TTL=116
+Reply from 8.8.8.8: bytes=28 time=18ms TTL=116
+Reply from 8.8.8.8: bytes=28 time=16ms TTL=116
+
+Looking up IP addresses:
+IPv4: 66.39.146.38
+IPv6: 2607:f440::4227:9226
+Connecting to HTTP Server:
+Connecting to 2607:f440::4227:9226:80 Failure (-1)
+Connecting to 66.39.146.38:80 Success
+HTTP/1.1 200 OK
+Date: Sat, 16 Aug 2025 11:19:55 GMT
+Server: Apache
+Last-Modified: Thu, 27 Jun 2024 11:26:53 GMT
+ETag: "f6f-61bdd685e5940"
+Accept-Ranges: bytes
+Content-Length: 3951
+Content-Type: text/plain
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel dolor auctor, bibendum lectus sit amet, bibendum velit. Nunc euismod, odio eget eleifend aliquet, nibh nibh malesuada risus, vel pretium nunc eros at elit. Donec finibus ultrices quam a luctus. Curabitur lobortis massa id sapien aliquam, id congue mi lobortis. Fusce id aliquam ante. Nullam congue velit ac bibendum eleifend. Nulla quis gravida odio, vel rutrum risus. Ut tincidunt, justo in fermentum bibendum, mauris mauris malesuada metus, ut eleifend augue lectus ut ex. Nam ut mollis ante.
 ```
 
-# Building for ESP32 (xtensa)
+# Building for ESP32-S3 (xtensa)
 
 Follow the [Getting Started Guide](https://docs.zephyrproject.org/latest/develop/getting_started/index.html) to install Zephyr and the build tools. 
+
+Zephyr Board Information: [ESP32-S3-DevKitM](https://docs.zephyrproject.org/latest/boards/espressif/esp32s3_devkitm/doc/index.html)
 
 ```
 git clone https://github.com/craigpeacock/Zephyr_ESP32_WiFi.git
 cd Zephyr_ESP32_WiFi
 west blobs fetch hal_espressif
-west build -b esp32
+west build -b esp32s3_devkitc/esp32s3/procpu
 west flash
 west espressif monitor
 ```
 
-# Building for ESP32C3 (RISC-V)
+# Building for ESP32-C3 (RISC-V)
 
 Follow the [Getting Started Guide](https://docs.zephyrproject.org/latest/develop/getting_started/index.html) to install Zephyr and the build tools. 
+
+Zephyr Board Information: [ESP32-C3-DevKitM](https://docs.zephyrproject.org/latest/boards/espressif/esp32c3_devkitm/doc/index.html)
 
 ```
 git clone https://github.com/craigpeacock/Zephyr_ESP32_WiFi.git
 cd Zephyr_ESP32_WiFi
 west blobs fetch hal_espressif
-west build -b esp32c3_devkitm
+west build -b esp32c3_devkitc/esp32c3
 west flash
 west espressif monitor
+```
+
+# Building for Raspberry PicoW
+
+Follow the [Getting Started Guide](https://docs.zephyrproject.org/latest/develop/getting_started/index.html) to install Zephyr and the build tools.
+
+Zephyr Board Information: [Raspberry Pi Pico](https://docs.zephyrproject.org/latest/boards/raspberrypi/rpi_pico/doc/index.html)
+
+```
+git clone https://github.com/craigpeacock/Zephyr_ESP32_WiFi.git
+cd Zephyr_ESP32_WiFi
+west blobs fetch hal_infineon
+west build -b rpi_pico/rp2040/w
+west flash
+```
+
+The console is available on P0/P1. UART0_TX is P0, UART0_RX is P1.
+
+Console Output:
+```
+WLAN Firmware    : wl0: Jun  5 2024 06:33:59 version 7.95.88 (cf1d613 CY) FWID 01-7b7cf51a
+WLAN CLM         : API: 12.2 Data: 9.10.39 Compiler: 1.29.4 ClmImport: 1.36.3 Creation: 2024-04-16 21:20:55
+WHD VERSION      : 3.3.2.25168 : v3.3.2 : GCC 12.2 : 2024-12-06 06:53:17 +0000
+*** Booting Zephyr OS build v4.2.0-1744-g1cb0b6a7ffa5 ***
+WiFi Example
+Board: rpi_pico
+Connecting to SSID: test_ap
+Connected
 ```
 
 # Troubleshooting
