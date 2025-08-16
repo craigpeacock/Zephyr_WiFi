@@ -30,6 +30,8 @@ static int icmp_echo_reply_handler(struct net_icmp_ctx *ctx,
 			ntohs(hdr->ipv4->len),
 			((uint32_t)k_cyc_to_ns_floor64(cycles) / 1000000),
 			hdr->ipv4->ttl);
+
+	return 0;
 }
 
 void ping(char* ipv4_addr, uint8_t count)
@@ -44,8 +46,6 @@ void ping(char* ipv4_addr, uint8_t count)
 		printk("Failed to init ping, err: %d", ret);
 	}
 
-	struct net_icmp_ping_params params;
-
 	struct net_if *iface = net_if_get_default();
 	struct sockaddr_in dst_addr;
 	net_addr_pton(AF_INET, ipv4_addr, &dst_addr.sin_addr);
@@ -54,7 +54,7 @@ void ping(char* ipv4_addr, uint8_t count)
 	for (int i = 0; i < count; i++)
 	{
 		cycles = k_cycle_get_32();
-		ret = net_icmp_send_echo_request(&icmp_context, iface, &dst_addr, NULL, &cycles);
+		ret = net_icmp_send_echo_request(&icmp_context, iface, (struct sockaddr *)&dst_addr, NULL, &cycles);
 		if (ret != 0) {
 			printk("Failed to send ping, err: %d", ret);
 		}

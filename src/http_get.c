@@ -151,12 +151,9 @@ void http_get(int sock, char * hostname, char * url)
 	req.url = url;
 	req.host = hostname;
 	req.protocol = "HTTP/1.1";
-	req.response = http_response_cb;
+	req.response = (void *)http_response_cb;
 	req.recv_buf = recv_buf;
 	req.recv_buf_len = sizeof(recv_buf);
 
-	/* sock is a file descriptor referencing a socket that has been connected
-	* to the HTTP server.
-	*/
 	ret = http_client_req(sock, &req, 5000, NULL);
 }
