@@ -12,7 +12,6 @@
 #include <zephyr/net/net_event.h>
 #include <errno.h>
 #include "http_get.h"
-#include "ping.h"
 
 #define SSID "test_ap"
 #define PSK "secretsquirrel"
@@ -178,18 +177,15 @@ int main(void)
     wifi_status();
     k_sem_take(&ipv4_address_obtained, K_FOREVER);
     printk("Ready...\n\n");
-
-    // Ping Google DNS 4 times
-    ping("8.8.8.8", 4);
-
-    printk("\nLooking up IP addresses:\n");
+    
+    printk("Looking up IP addresses:\n");
     struct zsock_addrinfo *res;
     nslookup("iot.beyondlogic.org", &res);
     print_addrinfo_results(&res);
 
-    printk("\nConnecting to HTTP Server:\n");
-    sock = connect_socket(&res, 80);
-    http_get(sock, "iot.beyondlogic.org", "/LoremIpsum.txt");
+    printk("Connecting to HTTP Server:\n");
+    sock = connect_socket(&res);
+    http_get(sock, "iot.beyondlogic.org", "/test.txt");
     zsock_close(sock);
     
     // Stay connected for 30 seconds, then disconnect.
