@@ -147,10 +147,17 @@ void http_get(int sock, char * hostname, char * url)
 	static uint8_t recv_buf[512];
 	int ret;
 
+	static const char *headers[] = {
+  		"User-Agent: Zephyr_HTTP_Client/1.0\r\n",
+    	"Content-Type: test/plain\r\n",
+    	NULL
+	};
+	
 	req.method = HTTP_GET;
 	req.url = url;
 	req.host = hostname;
 	req.protocol = "HTTP/1.1";
+	req.header_fields = headers;
 	req.response = (void *)http_response_cb;
 	req.recv_buf = recv_buf;
 	req.recv_buf_len = sizeof(recv_buf);
