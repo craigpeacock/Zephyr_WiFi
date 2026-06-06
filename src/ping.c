@@ -41,7 +41,7 @@ void ping(char* ipv4_addr, uint8_t count)
 	struct net_icmp_ctx icmp_context;
 
 	// Register handler for echo reply
-	ret = net_icmp_init_ctx(&icmp_context, NET_ICMPV4_ECHO_REPLY, 0, icmp_echo_reply_handler);
+	ret = net_icmp_init_ctx(&icmp_context, AF_INET, NET_ICMPV4_ECHO_REPLY, 0, icmp_echo_reply_handler);
 	if (ret != 0) {
 		printk("Failed to init ping, err: %d", ret);
 	}
