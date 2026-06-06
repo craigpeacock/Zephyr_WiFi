@@ -11,7 +11,7 @@
 #include <zephyr/net/icmp.h>
 #include <zephyr/net/net_ip.h>
 
-static int icmp_echo_reply_handler(struct net_icmp_ctx *ctx,
+static enum net_verdict icmp_echo_reply_handler(struct net_icmp_ctx *ctx,
 				struct net_pkt *pkt,
 				struct net_icmp_ip_hdr *hdr,
 				struct net_icmp_hdr *icmp_hdr,
