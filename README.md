@@ -49,8 +49,8 @@ Follow the [Getting Started Guide](https://docs.zephyrproject.org/latest/develop
 Zephyr Board Information: [ESP32-S3-DevKitC](https://docs.zephyrproject.org/latest/boards/espressif/esp32s3_devkitc/doc/index.html)
 
 ```
-git clone https://github.com/craigpeacock/Zephyr_ESP32_WiFi.git
-cd Zephyr_ESP32_WiFi
+git clone https://github.com/craigpeacock/Zephyr_WiFi.git
+cd Zephyr_WiFi
 west blobs fetch hal_espressif
 west build -b esp32s3_devkitc/esp32s3/procpu
 west flash
@@ -64,8 +64,8 @@ Follow the [Getting Started Guide](https://docs.zephyrproject.org/latest/develop
 Zephyr Board Information: [ESP32-C3-DevKitC](https://docs.zephyrproject.org/latest/boards/espressif/esp32c3_devkitc/doc/index.html)
 
 ```
-git clone https://github.com/craigpeacock/Zephyr_ESP32_WiFi.git
-cd Zephyr_ESP32_WiFi
+git clone https://github.com/craigpeacock/Zephyr_WiFi.git
+cd Zephyr_WiFi
 west blobs fetch hal_espressif
 west build -b esp32c3_devkitc/esp32c3
 west flash
@@ -79,8 +79,8 @@ Follow the [Getting Started Guide](https://docs.zephyrproject.org/latest/develop
 Zephyr Board Information: [ESP32-C6-DevKitC](https://docs.zephyrproject.org/latest/boards/espressif/esp32c6_devkitc/doc/index.html)
 
 ```
-git clone https://github.com/craigpeacock/Zephyr_ESP32_WiFi.git
-cd Zephyr_ESP32_WiFi
+git clone https://github.com/craigpeacock/Zephyr_WiFi.git
+cd Zephyr_WiFi
 west blobs fetch hal_espressif
 west build -b esp32c6_devkitc/esp32c6/hpcore
 west flash
@@ -94,8 +94,8 @@ Follow the [Getting Started Guide](https://docs.zephyrproject.org/latest/develop
 Zephyr Board Information: [Raspberry Pi Pico](https://docs.zephyrproject.org/latest/boards/raspberrypi/rpi_pico/doc/index.html)
 
 ```
-git clone https://github.com/craigpeacock/Zephyr_ESP32_WiFi.git
-cd Zephyr_ESP32_WiFi
+git clone https://github.com/craigpeacock/Zephyr_WiFi.git
+cd Zephyr_WiFi
 west blobs fetch hal_infineon
 west build -b rpi_pico/rp2040/w
 west flash
@@ -114,6 +114,48 @@ Board: rpi_pico
 Connecting to SSID: test_ap
 Connected
 ```
+
+# Building for Raspberry Pico2 W
+
+Follow the [Getting Started Guide](https://docs.zephyrproject.org/latest/develop/getting_started/index.html) to install Zephyr and the build tools.
+
+Zephyr Board Information: [Raspberry Pi Pico 2W](https://docs.zephyrproject.org/latest/boards/raspberrypi/rpi_pico2/doc/index.html)
+
+```
+git clone https://github.com/craigpeacock/Zephyr_WiFi.git
+cd Zephyr_WiFi
+west blobs fetch hal_infineon
+west build -b west build -b rpi_pico2/rp2350a/m33/w
+west flash
+```
+
+The console is available on P0/P1. UART0_TX is P0, UART0_RX is P1.
+
+Console Output:
+```
+[3144] WLAN MAC Address : 88:A2:9E:0A:E1:CD
+[3146] WLAN Firmware    : wl0: Jun  5 2024 06:33:59 version 7.95.88 (cf1d613 CY) FWID 01-7b7cf51a
+[3155] WLAN CLM         : API: 12.2 Data: 9.10.39 Compiler: 1.29.4 ClmImport: 1.36.3 Creation: 2024-04-16 21:20:55
+[3164] WHD VERSION      : 3.3.3.26653
+[3167]  : WIFI5-v3.3.3
+[3169]  : GCC 14.3
+[3171]  : 2025-04-14 03:18:50 +0000
+*** Booting Zephyr OS build v4.4.0 ***
+WiFi Example
+Board: rpi_pico2
+Connecting to SSID: test_ap
+Connected
+```
+
+Notes:
+The following message appears periodically. Tested on Zephyr 4.3.0 & 4.4.0.
+https://github.com/zephyrproject-rtos/zephyr/issues/74910
+
+```
+[15612] Function whd_wifi_join failed at line 2179 checkres = 33555438
+[00:00:15.615,000] <err> infineon_airoc_wifi: Failed to connect with network
+```
+
 
 # Troubleshooting
 
