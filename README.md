@@ -105,10 +105,14 @@ The console is available on P0/P1. UART0_TX is P0, UART0_RX is P1.
 
 Console Output:
 ```
-WLAN Firmware    : wl0: Jun  5 2024 06:33:59 version 7.95.88 (cf1d613 CY) FWID 01-7b7cf51a
-WLAN CLM         : API: 12.2 Data: 9.10.39 Compiler: 1.29.4 ClmImport: 1.36.3 Creation: 2024-04-16 21:20:55
-WHD VERSION      : 3.3.2.25168 : v3.3.2 : GCC 12.2 : 2024-12-06 06:53:17 +0000
-*** Booting Zephyr OS build v4.2.0-1744-g1cb0b6a7ffa5 ***
+[3495] WLAN MAC Address : 28:CD:C1:05:E3:A4
+[3499] WLAN Firmware    : wl0: Jun  5 2024 06:33:59 version 7.95.88 (cf1d613 CY) FWID 01-7b7cf51a
+[3508] WLAN CLM         : API: 12.2 Data: 9.10.39 Compiler: 1.29.4 ClmImport: 1.36.3 Creation: 2024-04-16 21:20:55
+[3516] WHD VERSION      : 3.3.3.26653
+[3519]  : WIFI5-v3.3.3
+[3521]  : GCC 12.2
+[3523]  : 2025-04-14 03:18:50 +0000
+*** Booting Zephyr OS build v4.3.0 ***
 WiFi Example
 Board: rpi_pico
 Connecting to SSID: test_ap
